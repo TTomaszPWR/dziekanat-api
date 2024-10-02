@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import DeanOffice from '#models/dean_office'
+import DeansOffice from '#models/deans_office'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class WorkingHour extends BaseModel {
   @column({ isPrimary: true })
   declare deansOfficeId: number
 
-  @column()
+  @column({ isPrimary: true })
   declare dayOfWeek: string
 
   @column()
@@ -22,6 +22,6 @@ export default class WorkingHour extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => DeanOffice)
-  declare deanOffice: BelongsTo<typeof DeanOffice>
+  @belongsTo(() => DeansOffice)
+  declare deanOffice: BelongsTo<typeof DeansOffice>
 }

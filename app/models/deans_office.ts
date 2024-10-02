@@ -4,7 +4,7 @@ import Worker from '#models/worker'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import WorkingHour from '#models/working_hour'
 
-export default class DeanOffice extends BaseModel {
+export default class DeansOffice extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
