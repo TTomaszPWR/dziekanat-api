@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import Worker from '#models/worker'
-import { HasMany } from '@adonisjs/lucid/types/relations'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 import WorkingHour from '#models/working_hour'
 
 export default class DeanOffice extends BaseModel {
