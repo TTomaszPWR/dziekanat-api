@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import DeanOffice from '#models/dean_office'
+import DeansOffice from '#models/deans_office'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Worker extends BaseModel {
@@ -25,6 +25,6 @@ export default class Worker extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => DeanOffice)
-  declare deansOffice: BelongsTo<typeof DeanOffice>
+  @belongsTo(() => DeansOffice)
+  declare deanOffice: BelongsTo<typeof DeansOffice>
 }
