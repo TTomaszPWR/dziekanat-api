@@ -7,10 +7,9 @@ export async function scrapeWorkersW14() {
 
   try {
     const response = await axios.get(url);
-    const html = response.data; // Get the HTML from the response
-    const $ = cheerio.load(html); // Load HTML into Cheerio
+    const html = response.data;
+    const $ = cheerio.load(html); 
 
-    // Extract working hours using Cheerio's selectors
     const $text = $('div.text p');
 
     const listOfWorkers = [];
@@ -19,29 +18,22 @@ export async function scrapeWorkersW14() {
         let text = $text.eq(i).html()
 
         if(text!=null){
-            text = text.split('</a>')[0].trim() + '<a/>';
-
-            const arr = text.split('<br>')
-
-            for (let i = 0; i < arr.length; i++) {
-                let line = cheerio.load(arr[i]);
-                arr[i] = line.text();
-            }
-
-            
-            const worker = {
-                name: arr[1],
-                tel: arr[2].split('.')[1].replace(/\s+/g, ''),
-                mail: arr[3].split(':')[1].replace(/\s+/g, ''),
-                info: arr[0]
-            };
-
-            listOfWorkers.push(worker)
+          text = text.split('</a>')[0].trim() + '<a/>';
+          const arr = text.split('<br>')
+          for (let i = 0; i < arr.length; i++) {
+              let line = cheerio.load(arr[i]);
+              arr[i] = line.text();
+          }
+          
+          const worker = {
+              name: arr[1],
+              tel: arr[2].split('.')[1].replace(/\s+/g, ''),
+              mail: arr[3].split(':')[1].replace(/\s+/g, ''),
+              info: arr[0]
+          };
+          listOfWorkers.push(worker)
         }
     }
-
-    
-
     return listOfWorkers;
 
   } catch (error) {
@@ -54,20 +46,20 @@ export async function scrapeWorkingHoursW14() {
 
   // Launch the browser in headless mode
   const browser = await puppeteer.launch({
-    headless: true
+    headless: false
   });
   const page = await browser.newPage();
    // Navigate to the page
-  await page.goto(url); // Replace with your target URL
+  await page.goto(url, {waitUntil: 'networkidle0'}); // Replace with your target URL
    // Wait for the element with the class "c-card__opening_hours" to appear
   await page.waitForSelector('.c-card__opening_hours');
    // Extract the content of the div
   const openingHours = await page.evaluate(() => {
-    const element = document.querySelector('.c-card__opening_hours') as HTMLElement;
-    return element ? element.innerText : null;
+    const elements = document.querySelectorAll('.c-card__opening_hours');
+    return Array.from(elements).map(element => (element as HTMLElement).innerText);
   });
    // Close the browser
   await browser.close();
 
-  return openingHours;
+  return openingHours.reverse();
 }
