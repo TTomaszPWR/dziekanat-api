@@ -1,6 +1,6 @@
 import { BaseCommand } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
-import { scrapeWorkingHours } from '../scripts/w14.js'
+import { scrapeWorkingHours } from '../scripts/working_hours.js'
 import { parseOpeningHours } from '../utils/parsers/parseOpeningHours.js'
 
 export default class ScriptTest extends BaseCommand {
