@@ -7,7 +7,7 @@ export async function scrapeWorkersW4() {
   const url = 'https://wit.pwr.edu.pl/studenci/dziekanat/kontakt'
 
   const phoneRegex = /tel\.\s*([+\d\s]+)/
-  const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/
+  const emailRegex = /([a-zA-Z]{2,}[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/
 
   const response = await axios.get(url)
   const $ = cheerio.load(response.data)
@@ -24,7 +24,7 @@ export async function scrapeWorkersW4() {
       const phoneNumber = phoneMatch ? phoneMatch[1] : undefined
 
       const emailMatch = text.match(emailRegex)
-      const email = emailMatch ? emailMatch[1] : undefined
+      const email = emailMatch ? emailMatch[1].toLowerCase() : undefined
       workers.push({ name, phoneNumber, email, deansOfficeId: facultyNumber })
     }
   }
