@@ -34,7 +34,7 @@ export async function scrapeWorkersW12() {
           listOfWorkers.push(worker)
         }
       }
-      console.log(listOfWorkers)
+      return listOfWorkers
   
     } catch (error) {
       console.error('Error fetching the webpage:', error);

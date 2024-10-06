@@ -1,8 +1,6 @@
 import { BaseCommand } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
-import { scrapeWorkingHours } from '../scripts/working_hours.js'
-import { parseOpeningHours } from '../utils/parsers/parseOpeningHours.js'
-import { scrapeWorkersW12 } from '../scripts/w12.js'
+import { scrapeWorkersW11 } from '../scripts/w11.js'
 
 export default class ScriptTest extends BaseCommand {
   static commandName = 'script:test'
@@ -20,7 +18,7 @@ export default class ScriptTest extends BaseCommand {
       console.log(parseOpeningHours(working_hours[i]))
     }*/
 
-    await scrapeWorkersW12()
+    await scrapeWorkersW11()
 
   }
 }

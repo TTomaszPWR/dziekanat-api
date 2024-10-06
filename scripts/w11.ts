@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 
-export async function scrapeWorkersW12() {
+export async function scrapeWorkersW11() {
     const url = 'https://wppt.pwr.edu.pl/studenci/dziekanat';
     const listOfWorkers = [];
   
@@ -9,41 +9,39 @@ export async function scrapeWorkersW12() {
         const response = await axios.get(url);
         const html = response.data;
         const $ = cheerio.load(html);
-        let elements = $('');
+        let elements = $('tr');
     
-        let info = null;
-    
-        const firstIndex = 3;
-    
-        for (let i = firstIndex; i <= elements.length-firstIndex; i++) {
+        const firstIndex = 7;
         
-          let element = elements.eq(i).html();
-          const children = elements.eq(i).children()
-          if(children.length===1) {
-              const $info = cheerio.load(element!);
-              info = $info.text().split("\n")[0].trim();
-              continue
-          }
-          element = element!.replaceAll("<br>", "|")
-          
-          const $element = cheerio.load(element)
-          const text = $element.text()
-          const workerInfo = text.split("\n").filter(function(element) {
-              return element !== "";
-          });
-          const workerRestInfo = workerInfo[1].split("|");
-          const worker = {
-              name: workerInfo[0],
-              tel: workerRestInfo[1].split('.')[1].replace(/\s+/g, ''),
-              mail: workerRestInfo[2].split(':')[1].replace(/\s+/g, ''),
-              info: info
-          };
-          listOfWorkers.push(worker)
+
+        for (let i = firstIndex; i <= elements.length-1; i++) {
+            let element = elements.eq(i).html();
+            const children = elements.eq(i).children()
+            if(children.length===1) {
+                continue
+            }
+            element = element!.replaceAll("<br>", "|")
+            const $element = cheerio.load(element)
+            let text = $element.text().trim()
+            if (text[text.length-1]==='|') text = text.slice(0, -1)
+            const workerInfo = text.split("|");
+            
+            console.log(workerInfo)
+            const tel = workerInfo[workerInfo.length-2].split("tel.")[1]
+
+            const worker = {
+                name: workerInfo[0].trim(),
+                tel: tel.replace(/\s+/g, ''),
+                mail: workerInfo[workerInfo.length-1].replaceAll('\n', ''),
+                info: workerInfo[1].replace(/\(/g, '').split(")")[0].trim()
+            }
+            
+            listOfWorkers.push(worker)
         }
+        console.log(listOfWorkers);
         
         return listOfWorkers;
         
-    
       } catch (error) {
         console.error('Error fetching the webpage:', error);
       }
