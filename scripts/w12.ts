@@ -11,26 +11,28 @@ export async function scrapeWorkersW12() {
       const $ = cheerio.load(html);
       const elements = $('td');
       let name = null;
+      let info = null;
       
       for (let i = 1; i < elements.length; i++) {
-        const $element = cheerio.load(elements[i]).text()
+        const $element = cheerio.load(cheerio.load(elements[i]).html().replace('<br>', '|')).text()
+
         const element = $element.split("\n").filter(function(element) {
           return element !== "";
         });
         if(i % 2) {
-          
-          name = element[0].trim()
+          const nameAndTitle = element[0].split("|") 
+          name = nameAndTitle[0].trim()
+          info = nameAndTitle[1].trim()
         }else{
           const contactInfo = element[0].split("email:")
           const worker = {
             name: name,
-            tel: contactInfo[0].split('.')[1].replace(/\s+/g, ''),
+            tel: contactInfo[0].split('.')[1].replace(/[\s|]+/g, ''),
             mail: contactInfo[1].trim(),
+            info: info,
           };
           listOfWorkers.push(worker)
-          
         }
-        
       }
       console.log(listOfWorkers)
   
