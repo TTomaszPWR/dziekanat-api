@@ -17,6 +17,8 @@ export async function scrapeWorkersW1() {
     '#module-description-content > div:nth-child(2) > div > table > tbody > tr:nth-child(n+2)'
   )) {
     const name = $(elem).find('td:nth-child(odd) > p strong').text().trim()
+    const infoText = $(elem).find('td:nth-child(odd)').text().trim()
+    const info = infoText.replace(name, '').trim()
     const text = $(elem).find('td:nth-child(even)').text()
 
     const phoneMatch = text.match(phoneRegex)
@@ -24,7 +26,8 @@ export async function scrapeWorkersW1() {
 
     const emailMatch = text.match(emailRegex)
     const email = emailMatch ? emailMatch[1].toLowerCase() : undefined
-    workers.push({ name, phoneNumber, email, deansOfficeId: facultyNumber })
+
+    workers.push({ name, phoneNumber, email, deansOfficeId: facultyNumber, info })
   }
 
   return workers
