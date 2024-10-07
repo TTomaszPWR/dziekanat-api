@@ -19,6 +19,9 @@ export default class Worker extends BaseModel {
   @column()
   declare email: string
 
+  @column()
+  declare info: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
