@@ -12,9 +12,6 @@ export default class DeansOffice extends BaseModel {
   declare name: string
 
   @column()
-  declare email: string
-
-  @column()
   declare location: string
 
   @column()

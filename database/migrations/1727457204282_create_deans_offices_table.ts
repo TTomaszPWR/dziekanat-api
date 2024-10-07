@@ -7,7 +7,6 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.integer('id').primary()
       table.text('name').notNullable()
-      table.text('email')
       table.text('location')
       table.text('link')
 
