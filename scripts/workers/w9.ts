@@ -25,18 +25,17 @@ export async function scrapeWorkersW9() {
       })
 
     for (const child of children) {
-      const elements = child.split('|')
-      if (elements.length > 2) {
+      const elems = child.split('|')
+      if (elems.length > 2) {
         const worker = {
           deansOfficeId: 9,
-          name: elements[0],
-          phoneNumber: elements[elements.length - 2].split('tel.')[1].replace(/\D+/g, '').trim(),
-          email: elements[elements.length - 1].split('mail:')[1].trim(),
+          name: elems[0],
+          phoneNumber: elems[elems.length - 2].split('tel.')[1].replace(/\D+/g, '').trim(),
+          email: elems[elems.length - 1].split('mail:')[1].trim(),
           info: info,
         }
         listOfWorkers.push(worker)
       } else {
-        continue
       }
     }
   }

@@ -11,12 +11,12 @@ export async function scrapeWorkersW14() {
 
   for (let i = 3; i <= 5; i++) {
     let text = $text.eq(i).html()
-    if (text != null) {
+    if (text !== null) {
       text = text.split('</a>')[0].trim() + '<a/>'
       const arr = text.split('<br>')
-      for (let i = 0; i < arr.length; i++) {
-        let line = cheerio.load(arr[i])
-        arr[i] = line.text()
+      for (let j = 0; j < arr.length; j++) {
+        let line = cheerio.load(arr[j])
+        arr[j] = line.text()
       }
 
       const worker = {

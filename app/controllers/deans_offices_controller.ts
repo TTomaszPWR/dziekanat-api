@@ -7,6 +7,6 @@ export default class DeansOfficesController {
   }
 
   async show({ params }: HttpContext) {
-    return await DeansOffice.query().where('id', params.id)
+    return DeansOffice.query().where('id', params.id)
   }
 }

@@ -7,9 +7,7 @@ export default class WorkersController {
     const deansOffices = await DeansOffice.query().preload('workers')
 
     // If you want to extract only the workers from all Dean's Offices
-    const allWorkers = deansOffices.flatMap((deanOffice) => deanOffice.workers)
-
-    return allWorkers
+    return deansOffices.flatMap((deanOffice) => deanOffice.workers)
   }
 
   async show({ params }: HttpContext) {

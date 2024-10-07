@@ -7,9 +7,7 @@ export default class HoursController {
     const deansOffices = await DeansOffice.query().preload('workingHours')
 
     // If you want to extract only the workers from all Dean's Offices
-    const allWorkingHours = deansOffices.flatMap((deanOffice) => deanOffice.workingHours)
-
-    return allWorkingHours
+    return deansOffices.flatMap((deanOffice) => deanOffice.workingHours)
   }
 
   async show({ params }: HttpContext) {

@@ -9,13 +9,13 @@ export async function scrapeWorkersW12() {
   const html = response.data
   const $ = cheerio.load(html)
   const elements = $('td')
-  let name
-  let info
+  let name = ''
+  let info = ''
 
   for (let i = 1; i < elements.length; i++) {
     const $element = cheerio.load(cheerio.load(elements[i]).html().replace('<br>', '|')).text()
-    const element = $element.split('\n').filter(function (element) {
-      return element !== ''
+    const element = $element.split('\n').filter(function (elem) {
+      return elem !== ''
     })
     if (i % 2) {
       const nameAndTitle = element[0].split('|')
