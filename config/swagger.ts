@@ -12,7 +12,8 @@ export default {
   info: {
     title: 'Dziekanat scrapper',
     version: '1.0.0',
-    description: 'Projekt wykonany w ramach letniego wyzwania',
+    description:
+      'The scrapper is designed to automatically retrieve data on the open hours of dean’s offices and their staff members. It efficiently collects information such as office locations, contact details, and working hours. This tool helps ensure up-to-date and accurate data, reducing manual effort in tracking office schedules. This project was created as part of the "Letnie Wyzwanie Solvro" challenge.',
   },
   snakeCase: true,
 
