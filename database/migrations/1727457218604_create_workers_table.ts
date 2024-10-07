@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.text('name').notNullable()
       table.text('phone_number')
       table.text('email')
+      table.text('info')
 
       table.timestamp('created_at').defaultTo(this.now())
       table.timestamp('updated_at')
