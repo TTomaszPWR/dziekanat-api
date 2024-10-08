@@ -14,6 +14,7 @@ import { scrapeWorkersW12 } from '../scripts/workers/w12.js'
 import { scrapeWorkersW13 } from '../scripts/workers/w13.js'
 import { scrapeWorkersW14 } from '../scripts/workers/w14.js'
 import Worker from '#models/worker'
+import db from '@adonisjs/lucid/services/db'
 
 export default class ScriptTest extends BaseCommand {
   static commandName = 'fetch:workers'
@@ -24,6 +25,8 @@ export default class ScriptTest extends BaseCommand {
   }
 
   async run() {
+    const trx = await db.transaction()
+
     const workerScrapers = [
       scrapeWorkersW1,
       scrapeWorkersW2,
@@ -40,9 +43,21 @@ export default class ScriptTest extends BaseCommand {
       scrapeWorkersW14,
     ]
 
-    for (const scraper of workerScrapers) {
-      const workers = await scraper()
-      await Worker.createMany(workers)
+    try {
+      let allWorkers: Partial<Worker>[] = []
+      for (const scraper of workerScrapers) {
+        const workers = await scraper()
+        allWorkers = allWorkers.concat(workers)
+      }
+      await Worker.query({ client: trx }).delete()
+      await Worker.createMany(allWorkers, { client: trx })
+
+      await trx.commit()
+      this.logger.info('Workers updated successfully')
+    } catch (error) {
+      // If any error occurs, rollback the transaction
+      await trx.rollback()
+      this.logger.error('Failed to update workers:', error.message)
     }
   }
 }
