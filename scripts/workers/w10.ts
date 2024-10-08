@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio'
 import axios from 'axios'
+import { capitalizeName } from '../../utils/string/capitalize_name.js'
 
 export async function scrapeWorkersW10() {
   const url =
@@ -20,7 +21,7 @@ export async function scrapeWorkersW10() {
 
     const worker = {
       deansOfficeId: 10,
-      name: element[0],
+      name: capitalizeName(element[0]),
       phoneNumber: contactInfos[0].replace(/\D+/g, '').trim(),
       email: contactInfos[1].trim(),
       info: element[1].trim(),

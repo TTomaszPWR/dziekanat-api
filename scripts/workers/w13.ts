@@ -34,14 +34,14 @@ export async function scrapeWorkersW13() {
           deansOfficeId: 13,
           name: workerInfo[0],
           phoneNumber: workerRestInfo[1].split('.')[1].replace(/\s+/g, ''),
-          email: workerRestInfo[2].split(':')[1].replace(/\s+/g, ''),
+          email: workerRestInfo[2].split(':')[1].replace(/\s+/g, '').toLowerCase(),
           info: info,
         }
       } else {
         worker = {
           deansOfficeId: 13,
           name: workerInfo[0],
-          email: workerRestInfo[1].split(':')[1].replace(/\s+/g, ''),
+          email: workerRestInfo[1].split(':')[1].replace(/\s+/g, '').toLowerCase(),
           info: info,
         }
       }

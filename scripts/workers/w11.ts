@@ -27,7 +27,7 @@ export async function scrapeWorkersW11() {
       deansOfficeId: 11,
       name: workerInfo[0].trim(),
       phoneNumber: tel.replace(/\s+/g, ''),
-      email: workerInfo[workerInfo.length - 1].replaceAll('\n', ''),
+      email: workerInfo[workerInfo.length - 1].replaceAll('\n', '').toLowerCase(),
       info: workerInfo[1].replace(/\(/g, '').split(')')[0].trim(),
     }
 
