@@ -22,7 +22,7 @@ export async function scrapeWorkersW10() {
     const worker = {
       deansOfficeId: 10,
       name: capitalizeName(element[0]),
-      phoneNumber: contactInfos[0].replace(/\D+/g, '').trim(),
+      phoneNumber: contactInfos[0].replace(/[^\d\s]/g, '').trim(),
       email: contactInfos[1].trim(),
       info: element[1].trim(),
     }

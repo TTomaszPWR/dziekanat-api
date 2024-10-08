@@ -16,7 +16,10 @@ export async function scrapeWorkersW8() {
     const texts = text.split('|')
     if (texts.length > 2) {
       const name = texts[0].split('pok.')[0].trim()
-      const phoneNumber = texts[1].split('tel.')[1].replace(/\D+/g, '').trim()
+      const phoneNumber = texts[1]
+        .split('tel.')[1]
+        .replace(/[^\d\s]/g, '')
+        .trim()
       const email = texts[2]
       listOfWorkers.push({ name, phoneNumber, email, deansOfficeId: deansOfficeId })
     }

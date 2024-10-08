@@ -33,7 +33,10 @@ export async function scrapeWorkersW13() {
         worker = {
           deansOfficeId: 13,
           name: workerInfo[0],
-          phoneNumber: workerRestInfo[1].split('.')[1].replace(/\s+/g, ''),
+          phoneNumber: workerRestInfo[1]
+            .split('.')[1]
+            .replace(/[^\d\s]/g, '')
+            .trim(),
           email: workerRestInfo[2].split(':')[1].replace(/\s+/g, '').toLowerCase(),
           info: info,
         }

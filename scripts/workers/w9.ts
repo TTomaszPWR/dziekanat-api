@@ -30,7 +30,10 @@ export async function scrapeWorkersW9() {
         const worker = {
           deansOfficeId: 9,
           name: elems[0],
-          phoneNumber: elems[elems.length - 2].split('tel.')[1].replace(/\D+/g, '').trim(),
+          phoneNumber: elems[elems.length - 2]
+            .split('tel.')[1]
+            .replace(/[^\d\s]/g, '')
+            .trim(),
           email: elems[elems.length - 1].split('mail:')[1].trim(),
           info: info,
         }
