@@ -15,7 +15,7 @@ export async function scrapeWorkersW6() {
     '#module-description-content > div:nth-child(2) > div > div > div > div > div > table:nth-child(2) > tbody > tr > td'
   )
   const leaderName = officeLeaderPath.find('p:nth-child(1)').text().trim()
-  const leaderEmail = officeLeaderPath.find('p:nth-child(2)').text().replace('e-mail: ', '')
+  const leaderEmail = officeLeaderPath.find('p:nth-child(2)').text().replace('e-mail:', '').trim()
   const leaderPhoneNumber = officeLeaderPath
     .find('p:nth-child(4)')
     .text()
