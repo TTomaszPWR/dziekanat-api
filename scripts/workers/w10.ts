@@ -13,8 +13,8 @@ export async function scrapeWorkersW10() {
 
   for (let i = 1; i < 5; i++) {
     const $element = cheerio.load(elements[i]).text()
-    const element = $element.split('\n').filter(function (element) {
-      return element !== ''
+    const element = $element.split('\n').filter(function (elem) {
+      return elem !== ''
     })
     const contactInfo = element[2].split('tel.')[1]
     const contactInfos = contactInfo.split('e-mail:')

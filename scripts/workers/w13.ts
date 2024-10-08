@@ -9,7 +9,7 @@ export async function scrapeWorkersW13() {
   const html = response.data
   const $ = cheerio.load(html)
   let elements = $('tr')
-  let info
+  let info = ''
   const firstIndex = 2
   for (let i = firstIndex; i <= elements.length - 1; i++) {
     try {
@@ -24,8 +24,8 @@ export async function scrapeWorkersW13() {
 
       const $element = cheerio.load(element)
       const text = $element.text()
-      const workerInfo = text.split('\n').filter(function (element) {
-        return element !== ''
+      const workerInfo = text.split('\n').filter(function (elem) {
+        return elem !== ''
       })
       const workerRestInfo = workerInfo[1].split('|')
       let worker = null

@@ -20,7 +20,7 @@ export default class ScriptTest extends BaseCommand {
   static description = ''
 
   static options: CommandOptions = {
-    startApp: true
+    startApp: true,
   }
 
   async run() {
@@ -28,7 +28,7 @@ export default class ScriptTest extends BaseCommand {
       scrapeWorkersW1,
       scrapeWorkersW2,
       scrapeWorkersW3,
-      scrapeWorkersW4, 
+      scrapeWorkersW4,
       scrapeWorkersW6,
       scrapeWorkersW7,
       scrapeWorkersW8,
@@ -37,12 +37,12 @@ export default class ScriptTest extends BaseCommand {
       scrapeWorkersW11,
       scrapeWorkersW12,
       scrapeWorkersW13,
-      scrapeWorkersW14
-    ];
+      scrapeWorkersW14,
+    ]
 
     for (const scraper of workerScrapers) {
-      const workers = await scraper();
-      await Worker.createMany(workers);
+      const workers = await scraper()
+      await Worker.createMany(workers)
     }
   }
 }

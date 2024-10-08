@@ -8,9 +8,16 @@ export const WorkingHourFactory = factory
 
     return {
       deansOfficeId: 2984,
-      dayOfWeek: faker.helpers.arrayElement(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']),
+      dayOfWeek: faker.helpers.arrayElement([
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+      ]),
       openHour: faker.number.int({ min: 7, max: 11 }).toString() + ':00',
-      closeHour: faker.number.int({ min: 13, max: 17 }).toString() + ':00' ,
+      closeHour: faker.number.int({ min: 13, max: 17 }).toString() + ':00',
     }
   })
   .build()
