@@ -25,8 +25,8 @@ export async function scrapeWorkersW11() {
     const tel = workerInfo[workerInfo.length - 2].split('tel.')[1]
     const worker = {
       deansOfficeId: 11,
-      name: workerInfo[0].trim(),
-      phoneNumber: tel.replace(/\s+/g, ''),
+      name: workerInfo[0].replace('­', '').trim(),
+      phoneNumber: tel.replace(/[^\d\s]/g, '').trim(),
       email: workerInfo[workerInfo.length - 1].replaceAll('\n', '').toLowerCase(),
       info: workerInfo[1].replace(/\(/g, '').split(')')[0].trim(),
     }

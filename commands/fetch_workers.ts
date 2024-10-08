@@ -17,7 +17,7 @@ import Worker from '#models/worker'
 
 export default class ScriptTest extends BaseCommand {
   static commandName = 'fetch:workers'
-  static description = ''
+  static description = "Scrape data about workers from every dean's office."
 
   static options: CommandOptions = {
     startApp: true,

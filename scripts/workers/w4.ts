@@ -21,7 +21,7 @@ export async function scrapeWorkersW4() {
       const text = $(elem).find('td:nth-child(even)').text()
 
       const phoneMatch = text.match(phoneRegex)
-      const phoneNumber = phoneMatch ? phoneMatch[1] : undefined
+      const phoneNumber = phoneMatch ? phoneMatch[1].replace('+48', '').trim() : undefined
 
       const emailMatch = text.match(emailRegex)
       const email = emailMatch ? emailMatch[1].toLowerCase() : undefined
