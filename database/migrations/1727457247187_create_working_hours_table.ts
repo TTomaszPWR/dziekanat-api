@@ -12,7 +12,7 @@ export default class extends BaseSchema {
         .notNullable()
 
       table
-        .enum('day_of_week', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'])
+        .text('day_of_week')
         .notNullable()
       table.primary(['deans_office_id', 'day_of_week'])
 

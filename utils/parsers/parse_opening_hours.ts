@@ -1,29 +1,37 @@
-export function parse_opening_hours(hoursStr: string) {
+export function parse_opening_hours(hoursStr: string, deansOfficeId: number, ) {
   // Split the input string into lines
   const lines: string[] = hoursStr.split('\n')
-  const openHours: (Object | null)[] = []
+  const openHours = []
 
   for (const element of lines) {
     const sign = firstOccurrence(element)
-    const [, ...rest] = element!.split(sign!)
+    const [day, ...rest] = element!.split(sign!)
     const part2 = rest
       .join(':')
       .replace(/[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/g, '')
       .trim()
 
     if (!containsNumber(part2)) {
-      openHours.push(null)
+      openHours.push({
+        deansOfficeId: deansOfficeId,
+        dayOfWeek: parseDay(day),
+      })
     } else {
       const hours = part2.split('-')
 
       openHours.push({
-        open: hours[0].trim(),
-        close: hours[1].trim(),
+        deansOfficeId: deansOfficeId,
+        dayOfWeek: parseDay(day),
+        openHour: hours[0].trim(),
+        closeHour: hours[1].trim(),
       })
     }
   }
 
-  if (openHours.length === 5) openHours.push(null)
+  if (openHours.length === 5) openHours.push({
+    deansOfficeId: deansOfficeId,
+    dayOfWeek: 'saturday',
+  })
   return openHours
 }
 
@@ -46,4 +54,23 @@ function firstOccurrence(str: string) {
   }
 
   return str[firstIndex]
+}
+
+const dayMapping: { [key: string]: string } = {
+  pon: "monday",
+  wt: "tuesday",
+  śr: "wednesday",
+  czw: "thursday",
+  pt: "friday",
+  sob: "saturday",
+  nd: "sunday"  
+};
+
+function parseDay(polishAbbreviation: string): string {
+  const englishDay = dayMapping[polishAbbreviation.toLowerCase()];
+  if (englishDay) {
+    return englishDay;
+  } else {
+    throw new Error("Invalid day abbreviation");
+  }
 }
